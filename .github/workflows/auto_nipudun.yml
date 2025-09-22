@@ -6,6 +6,10 @@ on:
     - cron: '30 23 * * *'
   # 也允许手动触发工作流
   workflow_dispatch:
+  # 在 trigger 分支上接收 push 事件时触发
+  push:
+    branches:
+      - trigger
 
 jobs:
   run-auto-nipudun:
