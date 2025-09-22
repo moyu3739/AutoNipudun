@@ -61,9 +61,9 @@ if __name__ == "__main__":
     print(f"准备为设备 {dev_addr} 的端口 {dev_port} 开启充电...")
     print(f"JSESSIONID: {cookie_jsessionid}")
 
-    # success, msg = BeginCharge(dev_addr, dev_port, cookie_jsessionid)
-    # if success:
-    #     print("充电开启成功")
-    # else:
-    #     print(f"充电开启失败: {msg}")
+    success, msg = BeginCharge(dev_addr, dev_port, cookie_jsessionid)
+    if success:
+        print("充电开启成功")
+    else:
+        print(f"充电开启失败: {msg}")
 
