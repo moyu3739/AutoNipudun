@@ -62,7 +62,7 @@ if __name__ == "__main__":
     print(f"准备为设备 {dev_addr} 的端口 {dev_port} 开启充电...")
     print(f"JSESSIONID: {cookie_jsessionid}")
 
-    # dev_addr = ""
+    # dev_addr = " "
     # dev_port = os.environ.get("DEV_PORT", None)
     # cookie_jsessionid = os.environ.get("COOKIE_JSESSIONID", None)
 

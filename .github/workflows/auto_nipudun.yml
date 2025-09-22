@@ -4,12 +4,12 @@ on:
   schedule:
     # 每天早上 7:30 执行 (UTC+8 为北京时间，但 GitHub Actions 使用 UTC 时间，所以是 23:30)
     - cron: '30 23 * * *'
-  # 也允许手动触发工作流
-  workflow_dispatch:
   # 在 trigger 分支上接收 push 事件时触发
   push:
     branches:
       - trigger
+  # 也允许手动触发工作流
+  workflow_dispatch:
 
 jobs:
   run-auto-nipudun:
