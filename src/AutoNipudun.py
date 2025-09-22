@@ -52,9 +52,11 @@ def BeginCharge(dev_addr: str, dev_port: str, cookie_jsessionid: str) -> tuple[b
 
 if __name__ == "__main__":
     # 从环境变量获取配置，如果没有则使用默认值
-    dev_addr = os.environ.get("DEV_ADDR", "50959103")
-    dev_port = os.environ.get("DEV_PORT", "12")
-    cookie_jsessionid = os.environ.get("COOKIE_JSESSIONID", "2131FB1957F77BA9E14A4FDCC34260A7")
+    dev_addr = os.environ.get("DEV_ADDR", None)
+    dev_port = os.environ.get("DEV_PORT", None)
+    cookie_jsessionid = os.environ.get("COOKIE_JSESSIONID", None)
+    if dev_addr is None or dev_port is None or cookie_jsessionid is None:
+        print("缺少环境变量")
     
     print(f"准备为设备 {dev_addr} 的端口 {dev_port} 开启充电...")
     print(f"JSESSIONID: {cookie_jsessionid}")
