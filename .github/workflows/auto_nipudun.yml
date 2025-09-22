@@ -28,6 +28,6 @@ jobs:
     - name: 执行充电脚本
       run: python src/AutoNipudun.py
       env:
-        DEV_ADDR: ${{ secrets.DEV_ADDR }}
-        DEV_PORT: ${{ secrets.DEV_PORT }}
+        DEV_ADDR: ${{ vars.DEV_ADDR }}
+        DEV_PORT: ${{ vars.DEV_PORT }}
         COOKIE_JSESSIONID: ${{ secrets.COOKIE_JSESSIONID }}
