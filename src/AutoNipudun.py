@@ -51,19 +51,24 @@ def BeginCharge(dev_addr: str, dev_port: str, cookie_jsessionid: str) -> tuple[b
     
 
 if __name__ == "__main__":
-    # 从环境变量获取配置，如果没有则使用默认值
-    dev_addr = os.environ.get("DEV_ADDR", None)
-    dev_port = os.environ.get("DEV_PORT", None)
-    cookie_jsessionid = os.environ.get("COOKIE_JSESSIONID", None)
-    if dev_addr is None or dev_port is None or cookie_jsessionid is None:
-        print("缺少环境变量")
-    
-    print(f"准备为设备 {dev_addr} 的端口 {dev_port} 开启充电...")
-    print(f"JSESSIONID: {cookie_jsessionid}")
+    print("AutoNipudun 脚本开始执行")
 
-    success, msg = BeginCharge(dev_addr, dev_port, cookie_jsessionid)
-    if success:
-        print("充电开启成功")
-    else:
-        print(f"充电开启失败: {msg}")
+    # dev_addr = os.environ.get("DEV_ADDR", None)
+    # dev_port = os.environ.get("DEV_PORT", None)
+    # cookie_jsessionid = os.environ.get("COOKIE_JSESSIONID", None)
+    # if dev_addr is None or dev_port is None or cookie_jsessionid is None:
+    #     print("缺少环境变量")
+    
+    # print(f"准备为设备 {dev_addr} 的端口 {dev_port} 开启充电...")
+    # print(f"JSESSIONID: {cookie_jsessionid}")
+
+    # dev_addr = ""
+    # dev_port = os.environ.get("DEV_PORT", None)
+    # cookie_jsessionid = os.environ.get("COOKIE_JSESSIONID", None)
+
+    # success, msg = BeginCharge(dev_addr, dev_port, cookie_jsessionid)
+    # if success:
+    #     print("充电开启成功")
+    # else:
+    #     print(f"充电开启失败: {msg}")
 
