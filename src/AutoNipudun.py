@@ -76,9 +76,14 @@ if __name__ == "__main__":
     print(f"准备为设备 {dev_addr} 的端口 {dev_port} 开启充电...")
     print(f"JSESSIONID: {cookie_jsessionid}")
 
-    success, msg = BeginCharge(dev_addr, dev_port, cookie_jsessionid)
-    if success:
-        print("充电开启成功")
-    else:
-        print(f"充电开启失败: {msg}")
+    max_try = 5
+    for i in range(max_try):
+        success, msg = BeginCharge(dev_addr, dev_port, cookie_jsessionid)
+        if success:
+            print(f"[{GetCurrentTime(hours=8)} (GMT+8)] ({i+1})充电开启成功")
+            break
+        else:
+            print(f"[{GetCurrentTime(hours=8)} (GMT+8)] ({i+1})充电开启失败: {msg}")
+            import time
+            time.sleep(60)
 
