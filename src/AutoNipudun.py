@@ -49,12 +49,14 @@ def BeginCharge(dev_addr: str, dev_port: str, cookie_jsessionid: str) -> tuple[b
         print(f"充电请求发送失败: {e}")
         return False, None
     
+def GetCurrentTime(hours: int) -> str:
+    from datetime import datetime, timedelta, timezone
+    tz = timezone(timedelta(hours=hours))
+    current_time = datetime.now(tz).strftime('%Y-%m-%d %H:%M:%S')
+    return current_time
 
 if __name__ == "__main__":    
-    from datetime import datetime, timedelta, timezone
-    tz_gmt8 = timezone(timedelta(hours=8))
-    current_time_gmt8 = datetime.now(tz_gmt8).strftime('%Y-%m-%d %H:%M:%S')
-    print(f"[{current_time_gmt8} (GMT+8)] AutoNipudun 脚本开始执行")
+    print(f"[{GetCurrentTime(hours=8)} (GMT+8)] AutoNipudun 脚本开始执行")
 
     dev_addr = os.environ.get("DEV_ADDR", None)
     dev_port = os.environ.get("DEV_PORT", None)
