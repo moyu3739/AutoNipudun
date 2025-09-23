@@ -12,10 +12,10 @@ def BeginCharge(dev_addr: str, dev_port: str, cookie_jsessionid: str) -> tuple[b
     payload = {
         "devaddress": dev_addr,
         "port": dev_port,
-        "money": "9",
+        "money": "7",
         "areaId": "6",
         "openId": "ouis3uOrvdmYNbSiOtUHD54vutjU",
-        "beforemoney": "999",
+        "beforemoney": "666",
         "devtypeid": "40",
         "fullStop": "0",
         "payType": "1",
@@ -49,23 +49,32 @@ def BeginCharge(dev_addr: str, dev_port: str, cookie_jsessionid: str) -> tuple[b
         print(f"充电请求发送失败: {e}")
         return False, None
     
+def GetCurrentTime(hours: int) -> str:
+    from datetime import datetime, timedelta, timezone
+    tz = timezone(timedelta(hours=hours))
+    current_time = datetime.now(tz).strftime('%Y-%m-%d %H:%M:%S')
+    return current_time
 
-if __name__ == "__main__":
-    print("AutoNipudun 脚本开始执行")
+if __name__ == "__main__":    
+    print(f"[{GetCurrentTime(hours=8)} (GMT+8)] AutoNipudun 脚本开始执行")
 
     dev_addr = os.environ.get("DEV_ADDR", None)
     dev_port = os.environ.get("DEV_PORT", None)
     cookie_jsessionid = os.environ.get("COOKIE_JSESSIONID", None)
     if dev_addr is None or dev_port is None or cookie_jsessionid is None:
-        print("缺少环境变量")
-    
+        print("缺少环境变量，使用配置文件")
+        import json
+        if os.path.exists("src/config.json"):
+            with open("src/config.json", "r", encoding="utf-8") as f:
+                config = json.load(f)
+                dev_addr = config.get("dev_addr", None)
+                dev_port = config.get("dev_port", None)
+                cookie_jsessionid = config.get("cookie_jsessionid", None)
+        if dev_addr is None or dev_port is None or cookie_jsessionid is None:
+            print("缺少配置")
+            
     print(f"准备为设备 {dev_addr} 的端口 {dev_port} 开启充电...")
     print(f"JSESSIONID: {cookie_jsessionid}")
-
-    # dev_addr = " "
-    # dev_port = os.environ.get("DEV_PORT", None)
-    # cookie_jsessionid = os.environ.get("COOKIE_JSESSIONID", None)
-
 
     success, msg = BeginCharge(dev_addr, dev_port, cookie_jsessionid)
     if success:
