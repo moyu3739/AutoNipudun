@@ -2,8 +2,8 @@ name: 自动执行充电
 
 on:
   schedule:
-    # 每天早上 7:30 执行 (UTC+8 为北京时间，但 GitHub Actions 使用 UTC 时间，所以是 23:30)
-    - cron: '30 23 * * *'
+    # 每天早上 6:01 执行 (UTC+8 为北京时间，但 GitHub Actions 使用 UTC 时间，所以是 22:01)
+    - cron: '01 22 * * *'
   # 在 trigger 分支上接收 push 事件时触发
   push:
     branches:
