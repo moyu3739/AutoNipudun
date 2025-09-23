@@ -66,6 +66,7 @@ if __name__ == "__main__":
     # dev_port = os.environ.get("DEV_PORT", None)
     # cookie_jsessionid = os.environ.get("COOKIE_JSESSIONID", None)
 
+
     success, msg = BeginCharge(dev_addr, dev_port, cookie_jsessionid)
     if success:
         print("充电开启成功")
