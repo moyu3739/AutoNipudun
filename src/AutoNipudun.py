@@ -76,7 +76,7 @@ if __name__ == "__main__":
     print(f"准备为设备 {dev_addr} 的端口 {dev_port} 开启充电...")
     print(f"JSESSIONID: {cookie_jsessionid}")
 
-    max_try = 5
+    max_try = 30
     for i in range(max_try):
         success, msg = BeginCharge(dev_addr, dev_port, cookie_jsessionid)
         if success:
