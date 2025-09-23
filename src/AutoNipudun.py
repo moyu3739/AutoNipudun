@@ -73,7 +73,6 @@ if __name__ == "__main__":
         if dev_addr is None or dev_port is None or cookie_jsessionid is None:
             print("缺少配置")
             
-    
     print(f"准备为设备 {dev_addr} 的端口 {dev_port} 开启充电...")
     print(f"JSESSIONID: {cookie_jsessionid}")
 
