@@ -58,33 +58,42 @@ def GetCurrentTime(hours: int) -> str:
 if __name__ == "__main__":    
     print(f"[{GetCurrentTime(hours=8)} (GMT+8)] AutoNipudun 脚本开始执行")
 
+    target_date = os.environ.get("TARGET_DATE", None)
     dev_addr = os.environ.get("DEV_ADDR", None)
     dev_port = os.environ.get("DEV_PORT", None)
     cookie_jsessionid = os.environ.get("COOKIE_JSESSIONID", None)
-    if dev_addr is None or dev_port is None or cookie_jsessionid is None:
+    if target_date is None or dev_addr is None or dev_port is None or cookie_jsessionid is None:
         print("缺少环境变量，使用配置文件")
         import json
         if os.path.exists("src/config.json"):
             with open("src/config.json", "r", encoding="utf-8") as f:
                 config = json.load(f)
+                target_date = config.get("target_date", None)
                 dev_addr = config.get("dev_addr", None)
                 dev_port = config.get("dev_port", None)
                 cookie_jsessionid = config.get("cookie_jsessionid", None)
-        if dev_addr is None or dev_port is None or cookie_jsessionid is None:
+        if target_date is None or dev_addr is None or dev_port is None or cookie_jsessionid is None:
             print("缺少配置")
+
+    # 检查程序运行时是否是目标日期（北京时间）
+    current_date = GetCurrentTime(hours=8)[:10]
+    if current_date != target_date:
+        print(f"当前日期 {current_date} 非目标日期 {target_date}，程序退出")
+        exit(0)
             
     print(f"准备为设备 {dev_addr} 的端口 {dev_port} 开启充电...")
     print(f"JSESSIONID: {cookie_jsessionid}")
     print("")
 
-    max_try = 30
-    for i in range(max_try):
+    max_attempt = 20
+    attempt_interval = 60  # seconds
+    for i in range(max_attempt):
         success, msg = BeginCharge(dev_addr, dev_port, cookie_jsessionid)
         if success:
-            print(f"[{GetCurrentTime(hours=8)} (GMT+8) attempt{i+1}] 充电开启成功")
+            print(f"[{GetCurrentTime(hours=8)} (GMT+8) attempt {i+1}] 充电开启成功")
             break
         else:
-            print(f"[{GetCurrentTime(hours=8)} (GMT+8) attempt{i+1}] 充电开启失败: {msg}")
+            print(f"[{GetCurrentTime(hours=8)} (GMT+8) attempt {i+1}] 充电开启失败: {msg}")
             import time
-            time.sleep(60)
+            time.sleep(attempt_interval)
 

@@ -32,6 +32,7 @@ jobs:
     - name: 执行充电脚本
       run: python src/AutoNipudun.py
       env:
+        TARGET_DATE: ${{ vars.TARGET_DATE }}
         DEV_ADDR: ${{ vars.DEV_ADDR }}
         DEV_PORT: ${{ vars.DEV_PORT }}
         COOKIE_JSESSIONID: ${{ secrets.COOKIE_JSESSIONID }}
